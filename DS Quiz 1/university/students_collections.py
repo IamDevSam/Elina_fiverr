@@ -146,7 +146,53 @@ class StudentsSingleLinkedList(Collection):
     ''' Task 3: Implement add_before function which adds the Student e before the first occurrence of Student a in list.
         False is returned if Student a is not found in list. '''
     def add_before(self, a: Student, e: Student) -> bool:
-        pass
+        # If linked list is empty return False
+        if self._first == None:
+            return False
+
+        self._last = self._first
+        prev = None
+
+        # Create new node with data as Student 'e'
+        new_student = StudentsSingleLinkedList._Node(e)
+
+        # First check if new student is needed to be added at start
+        if self._first._data == a:
+    
+            # Point to next to current head
+            new_student._next = self._first
+    
+            # Update the head pointer
+            self._first = new_student
+            
+            # increasing the list size by 1 after insertion
+            self._size += 1
+            
+            return True
+
+        # search for first occurrence of Student 'a' in list.
+        while self._last != None:
+            if self._last._data == a:
+                break
+            else:
+                prev = self._last
+                self._last = self._last._next
+
+        # check if the Student 'a' exists
+        if self._last == None:
+            return False
+
+        # Make next of new Node as next of prev_node
+        new_student._next = prev._next
+   
+        # make next of prev_node as new_node
+        prev._next = new_student
+
+        # increasing the list size by 1 after insertion
+        self._size += 1
+
+        return True
+
 
     ''' Task 4: Implement graduation year forward iterator, which iterates over the students graduating on given year 
     '''
@@ -218,9 +264,12 @@ class StudentsDoubleLinkedList(Collection):
         
             # traverse up to the node at given index from
             # the beginning
-            while ( self.__last != None and i <= index ):
-                self.__last = self.__last._next
-                i = i + 1
+            while ( self.__last != None and i < index ):
+                if i == index:
+                    break
+                else:
+                    self.__last = self.__last._next
+                    i = i + 1
         
             # if 'index' is greater than the number of nodes
             # in the doubly linked list
@@ -237,6 +286,16 @@ class StudentsDoubleLinkedList(Collection):
                 # reducing the list size by 1 after deletion
                 self.__size -= 1
                 return True
+
+            # If node to be deleted is tail/last node
+            if (self.__last._next == None):
+                self.__last = self.__last._prev
+                self.__last._next = None
+                
+                # reducing the list size by 1 after deletion
+                self.__size -= 1
+                return True
+
         
             # Change next only if node to be deleted is NOT
             # the last node
