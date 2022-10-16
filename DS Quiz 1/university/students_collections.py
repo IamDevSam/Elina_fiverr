@@ -97,7 +97,51 @@ class StudentsSingleLinkedList(Collection):
         False is returned otherwise. 
     '''
     def remove_at(self, index: int) -> bool:
-        pass
+        # Handlings the cases when index will be out of boundaries
+        if index < 0 or index >= self._size:
+            return False
+        else:
+            # If linked list is empty return False
+            if self._first == None:
+                return False
+    
+            # Store head node
+            self._last = self._first
+    
+            # If head needs to be removed
+            if index == 0:
+                self._first = self._last._next
+                self._last = None
+
+                # reducing the linkedlist size by 1 and return True
+                # after node deletion from linkelist
+                self._size -= 1
+                return True
+    
+            # Find previous node of the node to be deleted
+            for iterator in range(index -1):
+                self._last = self._last._next
+                if self._last is None:
+                    break
+    
+            # If position is more than number of nodes return False
+            if self._last is None:
+                return False
+            if self._last._next is None:
+                return False
+    
+            # Node self._last._next is the node to be deleted
+            # store pointer to the next of node to be deleted
+            next_node = self._last._next._next
+    
+            # Unlink the node from linked list
+            self._last._next._next = None
+            self._last._next = next_node
+
+            # reducing the linkedlist size by 1 after deletion
+            self._size -= 1
+
+            return True
 
     ''' Task 3: Implement add_before function which adds the Student e before the first occurrence of Student a in list.
         False is returned if Student a is not found in list. '''
@@ -127,10 +171,10 @@ class StudentsSingleLinkedList(Collection):
         pass
 
     def first(self) -> Student:
-        return self.__first._data
+        return self._first._data
 
     def last(self) -> Student:
-        return self.__last._data
+        return self._last._data
 
     def add(self, e) -> None:
         self.add_first(e)
@@ -164,7 +208,50 @@ class StudentsDoubleLinkedList(Collection):
     ''' Task 2: Implement remove_at(index) function which removes element at given index if it exists in the list. 
          False is returned otherwise. '''
     def remove_at(self, index: int) -> bool:
-        pass
+        # Handlings the cases when index will be out of boundaries
+        # or list if empty
+        if index < 0 or index >= self.__size or self.__first == None:
+            return False
+        else:
+            self.__last = self.__first
+            i = 0
+        
+            # traverse up to the node at given index from
+            # the beginning
+            while ( self.__last != None and i <= index ):
+                self.__last = self.__last._next
+                i = i + 1
+        
+            # if 'index' is greater than the number of nodes
+            # in the doubly linked list
+            if (self.__last == None):
+                return False
+        
+            # delete the node pointed to by 'self.__last'
+
+            # If node to be deleted is head node
+            if (self.__first == self.__last):
+                self.__first = self.__last._next
+                self.__first._prev = None
+
+                # reducing the list size by 1 after deletion
+                self.__size -= 1
+                return True
+        
+            # Change next only if node to be deleted is NOT
+            # the last node
+            if (self.__last._next != None):
+                self.__last._next._prev = self.__last._prev
+        
+            # Change prev only if node to be deleted is NOT
+            # the first node
+            if (self.__last._prev != None):
+                self.__last._prev._next = self.__last._next
+            
+            # reducing the list size by 1 after deletion
+            self.__size -= 1
+
+            return True
 
     def add_first(self, e) -> None:
         pass
