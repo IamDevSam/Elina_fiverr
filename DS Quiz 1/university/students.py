@@ -67,7 +67,10 @@ class ESStudent(Student):
         :param graduation_year:
         :param id:
         """
-        super().__init__(name, surname, id)
+        # '__init__' method of Parent class 'Student' requires 
+        # 4 positional arguments but only 3 are provided therefore 
+        # adding remaining 1 positional argument.
+        super().__init__(name, surname, gy, id)
 
     def study(self) -> None:
         """Make ESStudent study. """
@@ -91,6 +94,14 @@ class CSStudent(Student):
         """
         super().__init__(name, surname, gy, id)
 
+    # The abstract method 'study' was not implemented that should 
+    # be implemented in the child class becasue 'CSStudent' class
+    # inherit abstract class 'Student' so all abstract function of
+    # abstract class need to be implemented in child class.  
+    def study(self) -> None:
+        """Make CSStudent study. """
+        print("I love developing web applications")
+
     def practice(self) -> str:
         """Make CSStudent practice its knowledge. """
         return "Connecting the UI to the mainframe <<->>"
@@ -113,7 +124,9 @@ class DSStudent(Student):
         """Make DSStudent study. """
         print("I love to study DS and Algorithms")
 
-    @abstractmethod
+    # Since class 'DSStudent' is not an abstract class and 'practice'
+    # method is well implemented in child class we can't mark 
+    # practice method as an abstractmethod in a child class.
     def practice(self) -> str:
         """Make DSStudent practice its knowledge. """
         return "Let me figure out how to monetize it!"
