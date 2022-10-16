@@ -264,9 +264,12 @@ class StudentsDoubleLinkedList(Collection):
         
             # traverse up to the node at given index from
             # the beginning
-            while ( self.__last != None and i <= index ):
-                self.__last = self.__last._next
-                i = i + 1
+            while ( self.__last != None and i < index ):
+                if i == index:
+                    break
+                else:
+                    self.__last = self.__last._next
+                    i = i + 1
         
             # if 'index' is greater than the number of nodes
             # in the doubly linked list
@@ -283,6 +286,16 @@ class StudentsDoubleLinkedList(Collection):
                 # reducing the list size by 1 after deletion
                 self.__size -= 1
                 return True
+
+            # If node to be deleted is tail/last node
+            if (self.__last._next == None):
+                self.__last = self.__last._prev
+                self.__last._next = None
+                
+                # reducing the list size by 1 after deletion
+                self.__size -= 1
+                return True
+
         
             # Change next only if node to be deleted is NOT
             # the last node
