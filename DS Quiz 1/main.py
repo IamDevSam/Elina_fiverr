@@ -196,7 +196,21 @@ def test_task_5():
 the first occurrence of Student a in Stack
 '''
 def add_before_rec(stack: StudentsLinkedStack, a: Student, e: Student):
-    pass
+    if stack._first == None:
+        return
+
+    if stack.top()._data == a:
+        stack.add(e)
+        return
+
+    
+    popped_element = stack.top()._data
+    stack.pop()
+
+    add_before_rec(stack, a, e)
+    stack.push(popped_element)
+
+    
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':

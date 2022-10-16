@@ -398,10 +398,17 @@ class StudentsLinkedStack(Stack):
         self._size = 0
 
     def push(self, e):
-        pass
+        if self.is_empty():
+            self._first = StudentsLinkedStack.Node(e)
+        else:
+            new_node = StudentsLinkedStack.Node(e)
+            new_node._next = self._first
+            self._first = new_node
+        self._size += 1
 
     def pop(self):
-        pass
+        self._first = self._first._next
+        self._size -= 1
 
     def top(self):
         return self._first
