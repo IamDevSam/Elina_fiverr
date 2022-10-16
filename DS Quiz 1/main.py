@@ -202,7 +202,7 @@ def add_before_rec(stack: StudentsLinkedStack, a: Student, e: Student):
 if __name__ == '__main__':
     '''Comment out the test function calls below as you proceed with the implementations. 
     Note that all tests have a dependency from the first assignment'''
-    test_task_1()
+    #test_task_1()
     #test_task_2(StudentsSingleLinkedList)
     #test_task_2(StudentsDoubleLinkedList)
     #test_task_3()
