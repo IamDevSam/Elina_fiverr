@@ -197,7 +197,23 @@ class StudentsSingleLinkedList(Collection):
     ''' Task 4: Implement graduation year forward iterator, which iterates over the students graduating on given year 
     '''
     def graduation_year_iterator(self, grad_year):
-        pass
+
+        self._last = self._first
+        student_keeper = []
+
+        # getting all student graduating in given year and storing 
+        # them in a list
+        while self._last != None:
+
+            if self._last._data.get_graduation_year() == grad_year:
+                student_keeper.append(self._last._data)
+
+            self._last = self._last._next
+
+        # creating an iterable which will iterate over list of student
+        # which will be graduating in a given year.
+        it = iter(student_keeper)
+        return it
 
     def add_first(self, e) -> None:
         pass
